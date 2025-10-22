@@ -1,66 +1,71 @@
-## Foundry
+# 🪙 Assignment 3 — ERC20 Token Deployment
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## 📜 Contract Information
 
-Foundry consists of:
+| Field | Details |
+|--------|----------|
+| **Network** | Monad Testnet |
+| **Deployed Contract Address** | `0xb85C2Dbf3c47EEEF458cFa5ceC08A7C7B97d972a` |
+| **View on Monadscan / Monvision** | [🔗 View Verified Contract](https://testnet.monadscan.com/address/0xb85C2Dbf3c47EEEF458cFa5ceC08A7C7B97d972a#code) |
+| **Deployer** | `0xA9243FC4D13CD486C083D27f9Cb109aF5Ee82Ee6` |
+| **Status** | ✅ Verified |
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+---
 
-## Documentation
+## 📘 Overview
+This project is part of the **Monad Speedrun Assignment**.  
+The goal is to **deploy an ERC20 token** on the Monad testnet with **two roles** and implement features such as **pausing**, **minting**, and **role-based access control**.
 
-https://book.getfoundry.sh/
+---
 
-## Usage
+## 🎯 Assignment Requirements
+> **Deploy an ERC20 token with 2 roles:**
+> - **Admin:** Can pause/unpause the contract, manage roles, and transfer ownership.  
+> - **Minter:** Can mint (and burn) tokens when the contract is not paused.  
+>
+> **Tasks:**
+> 1. Deploy the token using **Remix**.  
+> 2. Verify the contract on **Monvision** or **Monadscan**.  
+> 3. Submit:
+>    - GitHub repo link  
+>    - Smart contract address  
 
-### Build
+---
 
-```shell
-$ forge build
-```
+## 🧱 Smart Contract Details
 
-### Test
+| Property | Value |
+|-----------|--------|
+| **Contract Name** | `Assignment3` |
+| **Token Name** | `Assignment3Token` |
+| **Symbol** | `ATK3` |
+| **Initial Supply** | `100` tokens (minted to deployer) |
+| **Solidity Version** | `^0.8.0` |
+| **License** | MIT |
+| **Frameworks Used** | OpenZeppelin Contracts |
 
-```shell
-$ forge test
-```
+---
 
-### Format
+## ⚙️ Features
 
-```shell
-$ forge fmt
-```
+| Feature | Description |
+|----------|--------------|
+| **ERC20 Standard** | Implements OpenZeppelin’s ERC20 interface |
+| **Ownable** | Ownership-based access for administrative tasks |
+| **AccessControl** | Custom role-based permissions for minters |
+| **Pausable** | Admin can pause/unpause all token activities |
+| **Minting & Burning** | Minters can mint or burn tokens |
+| **Initial Supply** | 100 tokens automatically minted to the deployer address |
 
-### Gas Snapshots
+---
 
-```shell
-$ forge snapshot
-```
+## 🧩 Roles
 
-### Anvil
+| Role | Description | Assigned To |
+|------|--------------|-------------|
+| **Owner (Admin)** | Can pause/unpause contract, grant/revoke roles, transfer ownership | Deployer by default |
+| **MINTER_AND_BURNER_ROLE** | Can mint and burn tokens when contract is not paused | Must be granted manually by owner |
 
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+**Example (grant minter role):**
+```solidity
+grantRole(mint_and_burn_role, 0xYourMinterAddress);
